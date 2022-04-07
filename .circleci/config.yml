@@ -89,6 +89,7 @@ jobs:
           keys: [backend-build]
       - run:
           name: Run backend test
+          working_directory: ./backend
           command: |
             cd backend
             npm install
