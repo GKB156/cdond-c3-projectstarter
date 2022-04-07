@@ -73,6 +73,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
+          keys: [frontend-build]
       - run:
           name: Run frontend test
           command: |
@@ -85,6 +86,7 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - restore_cache:
+          keys: [backend-build]
       - run:
           name: Run backend test
           command: |
