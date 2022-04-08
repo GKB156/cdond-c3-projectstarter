@@ -104,7 +104,7 @@ jobs:
           name: Scan frontend dependencies
           command: |
             cd frontend
-            npm audit fix --audit-level=critical --force
+            npm audit fix --audit-level=critical --prefix frontend
             npm audit --audit-level=critical
 
   scan-backend:
@@ -116,7 +116,7 @@ jobs:
           name: Scan backend dependencies
           command: |
             cd backend
-            npm audit fix --audit-level=critical --force
+            npm audit fix --audit-level=critical --prefix backend
             npm audit --audit-level=critical
 
   # deploy-infrastructure:
