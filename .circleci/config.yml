@@ -37,7 +37,7 @@ jobs:
     docker:
       - image: cimg/node:13.8.0
     steps:
-      - checkout
+      # - checkout
       - restore_cache:
           keys: [frontend-build]
       - run:
