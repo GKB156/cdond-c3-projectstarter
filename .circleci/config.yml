@@ -100,18 +100,24 @@ jobs:
       - image: cimg/node:13.8.0
     steps:
       - checkout
-      - run: |
-          cd frontend
-          npm audit fix --audit-level=critical --force
+      - run:
+          name: Scan frontend dependencies
+          command: |
+            cd frontend
+            npm audit fix --audit-level=critical --force
+            npm audit --audit-level=critical
 
   scan-backend:
     docker:
       - image: cimg/node:13.8.0
     steps:
       - checkout
-      - run: |
+      - run:
+          name: Scan backend dependencies
+          command: |
           cd backend
           npm audit fix --audit-level=critical --force
+          npm audit --audit-level=critical
 
   # deploy-infrastructure:
   #   docker:
