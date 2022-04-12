@@ -220,6 +220,10 @@ jobs:
             apk add --no-cache python3 py3-pip
             pip3 install --upgrade pip
             pip3 install awscli
+      - run:
+          name: Install npm and node
+          command: |
+            apk add nodejs nodejs-npm
       - attach_workspace:
           at: ~/
       - run:
