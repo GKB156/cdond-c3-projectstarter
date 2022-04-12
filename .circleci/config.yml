@@ -140,12 +140,12 @@ jobs:
       - run:
           name: Add back-end ip to ansible inventory
           command: |
+            echo "[web]" >> .circleci/ansible/inventory.txt
             BACKEND_AWS_PUBLIC_IP=$(aws ec2 describe-instances \
               --filters "Name=tag:Name,Values=backend-prod-${CIRCLE_WORKFLOW_ID:0:7}" \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
-              --output text)
+              --output text >> inventory.txt)
             echo "http://$BACKEND_AWS_PUBLIC_IP:3030"
-            echo "[all]" >> .circleci/ansible/inventory.txt
             echo "$BACKEND_AWS_PUBLIC_IP" >> .circleci/ansible/inventory.txt
       - persist_to_workspace:
           root: ~/
@@ -156,23 +156,26 @@ jobs:
   configure-infrastructure:
     docker:
       - image: python:3.7-alpine3.11
-      - image: circleci/postgres:9.6.2-alpine
-        environment:
-          POSTGRES_USER: postgres_admin
-          POSTGRES_DB: udacity_db
-          POSTGRES_PASSWORD: 12345678
+        # - image: cimg/postgres:9.6.2-alpine
+        # environment:
+        #   POSTGRES_USER: postgres_admin
+        #   POSTGRES_DB: udacity_db
+        #   POSTGRES_PASSWORD: 12345678
     steps:
       - checkout
-      - attach_workspace:
-          at: /home/
       - add_ssh_keys:
           fingerprints:
             - "b2:e5:a5:43:d9:09:a2:a1:c3:a2:5d:f9:db:ec:a8:84"
+      - attach_workspace:
+          at: ~/
       - run:
           name: Install dependencies
           command: |
-            apk add ansible
-            apk add curl
+            # apk add ansible
+            # apk add curl
+            apk add --no-cache curl
+            apk add --no-cache --upgrade bash
+            apk add --update ansible
       - run:
           name: Configure server
           command: |
@@ -182,7 +185,7 @@ jobs:
 
   run-migrations:
     docker:
-      - image: circleci/node:14.18.1
+      - image: cimg/node:14.18.1
     steps:
       - checkout
       - attach_workspace:
