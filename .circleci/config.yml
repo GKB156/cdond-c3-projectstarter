@@ -209,10 +209,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/
-      - run:
-          name: Install tar
-          command: |
-            yum -y install tar gzip
+      - run: yum -y install tar gzip
       - run:
           name: Install Ansible
           command: |
