@@ -211,8 +211,6 @@ jobs:
           name: Install tar utility
           command: |
             yum install -y tar gzip
-      - attach_workspace:
-          at: ~/
       - run:
           name: Install Ansible
           command: |
@@ -225,6 +223,8 @@ jobs:
           name: Install Python
           command: |
             apk add --no-cache python3 py3-pip
+      - attach_workspace:
+          at: ~/
       - run:
           name: Get backend url
           command: |
