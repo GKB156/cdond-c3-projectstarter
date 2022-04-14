@@ -192,7 +192,7 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-          fingerprints: ["b2:e5:a5:43:d9:09:a2:a1:c3:a2:5d:f9:db:ec:a8:84"]
+          fingerprints: ["c5:2f:78:d8:55:ee:f7:50:a2:ec:54:aa:fb:5e:ce:cc"]
       - attach_workspace:
           at: ~/
       - run:
@@ -264,7 +264,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: [frontend-deploy]
+          keys: [frontend-build]
       - run:
           name: Install tar utility
           command: |
@@ -317,9 +317,9 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: [backend-deploy]
+          keys: [backend-build]
       - add_ssh_keys:
-          fingerprints: ["b2:e5:a5:43:d9:09:a2:a1:c3:a2:5d:f9:db:ec:a8:84"]
+          fingerprints: ["c5:2f:78:d8:55:ee:f7:50:a2:ec:54:aa:fb:5e:ce:cc"]
       - run:
           name: Install ansible
           command: |
@@ -363,7 +363,7 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-          fingerprints: ["b2:e5:a5:43:d9:09:a2:a1:c3:a2:5d:f9:db:ec:a8:84"]
+          fingerprints: ["c5:2f:78:d8:55:ee:f7:50:a2:ec:54:aa:fb:5e:ce:cc"]
       - run:
           name: Install dependencies
           command: |
