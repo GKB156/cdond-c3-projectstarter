@@ -39,12 +39,11 @@ commands:
           name: Revert migrations
           when: on_fail
           command: |
-            # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            SUCCESS=$(curl -H "token: e52b52de-ee26-41a5-86e8-e8dcc3d995a5" --request GET https://kvdb.io/values/migration_<< parameters.workflow_id >>)
+            # # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
 
             SUCCESS=$(curl --insecure  https://kvdb.io/EWnYLFh8jhHMe7vUSGxnWc/migration_<< parameters.workflow_id >>)
 
-            SUCCESS = 1
+            # SUCCESS = 1
             if(( $SUCCESS==1 )); 
             then
              cd ~/project/backend
@@ -184,11 +183,6 @@ jobs:
   configure-infrastructure:
     docker:
       - image: python:3.7-alpine3.11
-        # - image: cimg/postgres:9.6.2-alpine
-        # environment:
-        #   POSTGRES_USER: postgres_admin
-        #   POSTGRES_DB: udacity_db
-        #   POSTGRES_PASSWORD: 12345678
     steps:
       - checkout
       - add_ssh_keys:
@@ -236,13 +230,21 @@ jobs:
           command: |
             cd backend
             npm install
+            npm run build
+            npm run migrations:revert
             npm run migrations > migrations_dump.txt
+            cat migrations_dump.txt
+      - save_cache:
+          paths: [backend/node_modules]
+          key: backend-build
       - run:
           name: Send migration results to kvdb
           command: |
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
-                curl https://kvdb.io/EWnYLFh8jhHMe7vUSGxnWc/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+                curl https://kvdb.io/EWnYLFh8jhHMe7vUSGxnWc/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d 1
+            else
+                curl https://kvdb.io/EWnYLFh8jhHMe7vUSGxnWc/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d 0
             fi
 
   deploy-frontend:
