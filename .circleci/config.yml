@@ -365,17 +365,8 @@ jobs:
             cd .circleci/ansible
             echo "Contents of the inventory.txt file is -------"
             cat inventory.txt
-            ansible-playbook -i .circleci/ansible/inventory.txt .circleci/ansible/deploy-backend.yml
+            ansible-playbook -i inventory.txt deploy-backend.yml
             export ANSIBLE_HOST_KEY_CHECKING=False
-            # echo "[all]" >> backend/inventory.txt
-            # aws ec2 describe-instances \
-            #   --filters Name=tag:Name,Values="backend-${CIRCLE_WORKFLOW_ID:0:7}" \
-            #   --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            #   --output text >> .circleci/ansible/inventory.txt
-
-            # echo "Contents  of the inventory.txt file is -------"
-            # cat inventory.txt
-            # ansible-playbook -i inventory.txt deploy-backend.yml
       # Here's where you will add some code to rollback on failure
       - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
