@@ -1,6 +1,6 @@
 ---
 - name: "configuration play."
-  hosts: all #changed this from localhost
+  hosts: web #changed this from localhost
   user: ubuntu
   become: true
   become_method: sudo
@@ -12,9 +12,9 @@
     - ansible_stdout_callback: yaml
 
   pre_tasks:
-    - name: "wait 600 seconds for target connection to become reachable/usable."
-      pause:
-        minutes: 5
+    - name: Wait 600 seconds for target connection to become reachable/usable
+      wait_for_connection:
+        timeout: 600
 
     - name: "install python for Ansible."
       become: true
