@@ -36,5 +36,5 @@
   # roles:
   #   - { role: roles/configure-server }
   roles:
-    - configure-server
-    - configure-prometheus-node-exporter
+    - roles/configure-server
+    - rolesconfigure-prometheus-node-exporter
