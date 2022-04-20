@@ -21,11 +21,12 @@
     path: /home/ubuntu/backend
     state: directory
 
-- name: "Copy backend tar.gz file and unzip it"
+- name: unpack backend files
   become: yes
-  unarchive:
-    src: backend.tar.gz
-    dest: /home/ubuntu/backend
+  shell: |
+    cd ~/backend
+    tar -vxf artifact.tar.gz
+    rm -f artifact.tar.gz
 
 - name: Start backend
   become: true
