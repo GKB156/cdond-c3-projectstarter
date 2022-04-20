@@ -13,7 +13,7 @@
   become: yes
   apt:
     autoremove: yes
-
+    
 - name: "install dependencies, such as NodeJS and NPM"
   become: yes
   apt:
@@ -27,22 +27,3 @@
     name: pm2
     global: yes
     production: yes
-# - name: "upgrade packages."
-#   become: true
-#   apt:
-#     upgrade: "yes"
-
-# - name: "install dependencies."
-#   become: true
-#   apt:
-#     name: ["nodejs", "npm"]
-#     state: latest
-#     update_cache: yes
-
-# - name: "install pm2"
-#   become: true
-#   npm:
-#     name: pm2
-#     global: yes
-#     production: yes
-#     state: present
