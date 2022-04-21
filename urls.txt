@@ -1,3 +1,4 @@
 URL01 (Github): https://github.com/GKB156/cdond-c3-projectstarter
-URL02 (S3 Frontend URL):
-URL03 (CloudFront URL):
+URL02 (S3 Frontend URL): http://udapeople-37f61d6.s3-website-us-east-1.amazonaws.com
+URL03 (CloudFront URL): dx2069h8bd9m6.cloudfront.net
+URL04 (Healthy backend application): http://44.203.254.246:3030/api/status
